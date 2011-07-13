@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./fonts/stylesheet.css"></link>
+        <link rel="stylesheet" type="text/css" href="./css/stylesheet.css"></link>
+        <script src="./js/jquery-1.6.1.min.js"></script>
+        <script src="./js/talktool.js"></script>
+    </head>
+    <body>
+    
+    
+<script>var firstpage="page_1.html"; var lastpage="page_20.html";</script>
+<h1>Views</h1>
+<ul class="ewidelist">
+    <li>Djangos generic views are a great example</li>
+    <li>Use reverse</li>
+    <li>Use sensible defaults for settings, (and prefix them)</li>
+    <li>Class based views</li>
+    <li>Let people specifiy their own forms, templates, etc, but give sensible defaults</li>
+</ul>
+<div class="source highlight"><pre><span class="k">def</span> <span class="nf">support_page</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form_class</span><span class="o">=</span><span class="n">SupportForm</span><span class="p">,</span>
+         <span class="n">template_name</span><span class="o">=</span><span class="s">&#39;django_support_page/support_form.html&#39;</span><span class="p">,</span>
+         <span class="n">success_url</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">extra_context</span><span class="o">=</span><span class="bp">None</span><span class="p">,
+         </span> <span class="n">fail_silently</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+                                  </pre></div>
+
+
+    </body>
+</html>

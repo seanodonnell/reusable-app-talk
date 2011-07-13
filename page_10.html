@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./fonts/stylesheet.css"></link>
+        <link rel="stylesheet" type="text/css" href="./css/stylesheet.css"></link>
+        <script src="./js/jquery-1.6.1.min.js"></script>
+        <script src="./js/talktool.js"></script>
+    </head>
+    <body>
+    
+    
+<script>var firstpage="page_1.html"; var lastpage="page_20.html";</script>
+<h1>URLS</h1>
+<p>Name Them</p>
+<div class="source highlight"><pre><span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^index/$&#39;</span><span class="p">,</span> <span class="n">index_view</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;APP-index_view&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    </pre></div>
+<p>Then use</p>
+<div class="source" style="text-align: center">
+{% url urlname %}
+</div>
+<p>in templates and django.core.urlresolvers.reverse in your views</p>
+
+
+
+    </body>
+</html>

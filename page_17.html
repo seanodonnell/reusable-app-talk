@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./fonts/stylesheet.css"></link>
+        <link rel="stylesheet" type="text/css" href="./css/stylesheet.css"></link>
+        <script src="./js/jquery-1.6.1.min.js"></script>
+        <script src="./js/talktool.js"></script>
+    </head>
+    <body>
+    
+    
+<script>var firstpage="page_1.html"; var lastpage="page_20.html";</script>
+<h1>Static Media</h1>
+<ul class="ewidelist">
+<li>Django Static Media</li>
+<li>add django.contrib.staticfiles to settings.INSTALLED_APPS</li>
+<li>Define STATIC_URL in settings.py</li>
+<li>Place the files in APP/static/APP/</li>
+<li>In a template: &lt;img src="{{ STATIC_URL }}images/hi.jpg" /&gt;</li>
+</ul>
+<div class="source highlight"><pre>STATIC_URL = &#39;http://localhost:8000/static/&#39;
+</pre></div>
+<p>In a form:</p>
+<div class="source highlight"><pre><span class="k">class</span> <span class="nc">Media</span><span class="p">:</span>
+   <span class="n">js</span> <span class="o">=</span> <span class="p">(</span>
+           <span class="s">&#39;django-support-page/js/domready.js&#39;</span><span class="p">,</span>
+           <span class="s">&#39;django-support-page/js/events.js&#39;</span><span class="p">,</span>
+           <span class="s">&#39;django-support-page/js/browserdetect.js&#39;</span><span class="p">,</span>
+           <span class="s">&#39;django-support-page/js/json2.js&#39;</span><span class="p">,</span>
+           <span class="s">&#39;django-support-page/js/modernizr-1.6.min.js&#39;</span><span class="p">,</span>
+           <span class="s">&#39;django-support-page/js/detect.js&#39;</span><span class="p">,)</span>
+</pre></div>
+
+
+
+    </body>
+</html>

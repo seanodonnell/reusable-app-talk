@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./fonts/stylesheet.css"></link>
+        <link rel="stylesheet" type="text/css" href="./css/stylesheet.css"></link>
+        <script src="./js/jquery-1.6.1.min.js"></script>
+        <script src="./js/talktool.js"></script>
+    </head>
+    <body>
+    
+    
+<script>var firstpage="page_1.html"; var lastpage="page_20.html";</script>
+<h1>Sample Backend</h1>
+<div class="source highlight"><pre><span class="kn">from</span> <span class="nn">django.template.loader</span> <span class="kn">import</span> <span class="n">get_template</span>
+
+<span class="k">def</span> <span class="nf">mail_handler</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">from_name</span><span class="p">,</span> <span class="n">from_email</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span>
+                    <span class="n">files</span><span class="p">,</span> <span class="n">fail_silently</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+    <span class="n">send_to</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s">&quot;DJANGO_SUPPORT_EMAIL_TO&quot;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">send_to</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+            <span class="sd">&quot;&quot;&quot;Please add DJANGO_SUPPORT_EMAIL_TO to your 
+            settings.py,</span><span class="sd"> It should contain a list of email 
+            addresses to send support</span><span class="sd"> email to.&quot;&quot;&quot;</span><span class="p">)</span>
+    <span class="n">textemail</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(
+                </span><span class="s">&quot;django_support_page/emails/email.txt&quot;</span><span class="p">)</span>
+    <span class="n">htmlemail</span> <span class="o">=</span> <span class="n">get_template</span><span class="p">(
+                </span><span class="s">&quot;django_support_page/emails/email_html.txt&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">Context</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,
+    </span>             <span class="n">from_name</span><span class="o">=</span><span class="n">from_name</span><span class="p">,</span> <span class="n">from_email</span><span class="o">=</span><span class="n">from_email</span><span class="p">))</span>
+    <span class="n">text_content</span> <span class="o">=</span> <span class="n">textemail</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="n">html_content</span> <span class="o">=</span> <span class="n">htmlemail</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">EmailMultiAlternatives</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span> <span class="n">text_content</span><span class="p">,</span> 
+                                    <span class="n">from_email</span><span class="p">,</span> <span class="n">send_to</span><span class="p">)</span>
+    <span class="n">msg</span><span class="o">.</span><span class="n">attach_alternative</span><span class="p">(</span><span class="n">html_content</span><span class="p">,</span> <span class="s">&quot;text/html&quot;</span><span class="p">)</span>
+    <span class="n">msg</span><span class="o">.</span><span class="n">send</span><span class="p">()</span>
+</pre></div>
+
+
+    </body>
+</html>

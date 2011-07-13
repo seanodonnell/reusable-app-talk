@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./fonts/stylesheet.css"></link>
+        <link rel="stylesheet" type="text/css" href="./css/stylesheet.css"></link>
+        <script src="./js/jquery-1.6.1.min.js"></script>
+        <script src="./js/talktool.js"></script>
+    </head>
+    <body>
+    
+    
+<script>var firstpage="page_1.html"; var lastpage="page_20.html";</script>
+<h1>Discovering Handlers</h1>
+<div class="source highlight"><pre><span class="kn">from</span> <span class="nn">django.utils.importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
+
+<span class="k">def</span> <span class="nf">init_support_handlers</span><span class="p">():</span>
+    <span class="n">handler_paths</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s">&quot;SUPPORT_PAGE_HANDLERS&quot;</span><span class="p">,</span>
+     <span class="p">[</span><span class="s">&quot;django_support_page.handlers.mail_handler.mail_handler&quot;</span><span class="p">])</span>
+    <span class="n">handlers</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">handler_path</span> <span class="ow">in</span> <span class="n">handler_paths</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">h_module</span><span class="p">,</span> <span class="n">h_funcname</span> <span class="o">=</span> <span class="n">handler_path</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">ImproperlyConfigured</span><span class="p">(</span>
+                <span class="s">&#39;</span><span class="si">%s</span><span class="s"> isn</span><span class="se">\&#39;</span><span class="s">t a django_support_page handler&#39;</span> <span class="o">%</span>
+                <span class="n">handler_path</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mod</span> <span class="o">=</span> <span class="n">import_module</span><span class="p">(</span><span class="n">h_module</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s">(&#39;Error importing django_support_page handler&#39;</span>
+            &#39;<span class="si">%s</span><span class="s">: &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;)</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">ImproperlyConfigured</span><span class="p">(
+                </span><span class="n">msg</span> <span class="o">%</span> <span class="p">(</span><span class="n">h_module</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">h_func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">h_funcname</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">ImproperlyConfigured</span><span class="p">(
+            </span><span class="s">&#39;django_support_page handle &quot;</span><span class="si">%s</span><span class="s">&quot; does not define a 
+            &quot;</span><span class="si">%s</span><span class="s">&quot; function&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">h_module</span><span class="p">,</span> <span class="n">h_funcname</span><span class="p">))</span>
+        <span class="n">handlers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h_func</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">handlers</span>
+</pre></div>
+
+
+    </body>
+</html>

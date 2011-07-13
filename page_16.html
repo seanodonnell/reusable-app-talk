@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="./fonts/stylesheet.css"></link>
+        <link rel="stylesheet" type="text/css" href="./css/stylesheet.css"></link>
+        <script src="./js/jquery-1.6.1.min.js"></script>
+        <script src="./js/talktool.js"></script>
+    </head>
+    <body>
+    
+    
+<script>var firstpage="page_1.html"; var lastpage="page_20.html";</script>
+<h1>Registration Pattern</h1>
+<ul class="ewidelist">
+<li>Used by Haystack, Django Admin</li>
+<li>Iterate through installed apps and attempting import</li>
+<li>See <a href="http://charlesleifer.com/blog/looking-registration-patterns-django/">http://charlesleifer.com/blog/looking-registration-patterns-django/</a></li>
+</ul>
+<div class="source highlight"><pre><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">haystack.indexes</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">haystack</span> <span class="kn">import</span> <span class="n">site</span>
+<span class="kn">from</span> <span class="nn">myapp.models</span> <span class="kn">import</span> <span class="n">Note</span>
+
+
+<span class="k">class</span> <span class="nc">NoteIndex</span><span class="p">(</span><span class="n">SearchIndex</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">document</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">use_template</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">(</span><span class="n">model_attr</span><span class="o">=</span><span class="s">&#39;user&#39;</span><span class="p">)</span>
+    <span class="n">pub_date</span> <span class="o">=</span> <span class="n">DateTimeField</span><span class="p">(</span><span class="n">model_attr</span><span class="o">=</span><span class="s">&#39;pub_date&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">index_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Used when the entire index for model is updated.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Note</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(
+                    </span><span class="n">pub_date__lte</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+
+<span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Note</span><span class="p">,</span> <span class="n">NoteIndex</span><span class="p">)</span>
+</pre></div>
+
+
+
+    </body>
+</html>
